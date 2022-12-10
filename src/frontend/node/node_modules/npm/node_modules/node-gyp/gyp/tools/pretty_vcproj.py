@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # Copyright (c) 2012 Google Inc. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
@@ -12,6 +12,7 @@
    It outputs the resulting xml to stdout.
 """
 
+from __future__ import print_function
 
 import os
 import sys
@@ -20,22 +21,27 @@ from xml.dom.minidom import parse
 from xml.dom.minidom import Node
 
 __author__ = "nsylvain (Nicolas Sylvain)"
-ARGUMENTS = None
+
+try:
+    cmp
+except NameError:
+
+    def cmp(x, y):
+        return (x > y) - (x < y)
+
+
 REPLACEMENTS = dict()
+ARGUMENTS = None
 
 
-def cmp(x, y):
-    return (x > y) - (x < y)
-
-
-class CmpTuple:
+class CmpTuple(object):
     """Compare function between 2 tuple."""
 
     def __call__(self, x, y):
         return cmp(x[0], y[0])
 
 
-class CmpNode:
+class CmpNode(object):
     """Compare function between 2 xml nodes."""
 
     def __call__(self, x, y):
@@ -66,7 +72,7 @@ class CmpNode:
 def PrettyPrintNode(node, indent=0):
     if node.nodeType == Node.TEXT_NODE:
         if node.data.strip():
-            print("{}{}".format(" " * indent, node.data.strip()))
+            print("%s%s" % (" " * indent, node.data.strip()))
         return
 
     if node.childNodes:
@@ -78,23 +84,23 @@ def PrettyPrintNode(node, indent=0):
 
     # Print the main tag
     if attr_count == 0:
-        print("{}<{}>".format(" " * indent, node.nodeName))
+        print("%s<%s>" % (" " * indent, node.nodeName))
     else:
-        print("{}<{}".format(" " * indent, node.nodeName))
+        print("%s<%s" % (" " * indent, node.nodeName))
 
         all_attributes = []
         for (name, value) in node.attributes.items():
             all_attributes.append((name, value))
             all_attributes.sort(CmpTuple())
         for (name, value) in all_attributes:
-            print('{}  {}="{}"'.format(" " * indent, name, value))
+            print('%s  %s="%s"' % (" " * indent, name, value))
         print("%s>" % (" " * indent))
     if node.nodeValue:
-        print("{}  {}".format(" " * indent, node.nodeValue))
+        print("%s  %s" % (" " * indent, node.nodeValue))
 
     for sub_node in node.childNodes:
         PrettyPrintNode(sub_node, indent=indent + 2)
-    print("{}</{}>".format(" " * indent, node.nodeName))
+    print("%s</%s>" % (" " * indent, node.nodeName))
 
 
 def FlattenFilter(node):
@@ -155,7 +161,7 @@ def CleanupVcproj(node):
         AbsoluteNode(sub_node)
         CleanupVcproj(sub_node)
 
-    # Normalize the node, and remove all extraneous whitespaces.
+    # Normalize the node, and remove all extranous whitespaces.
     for sub_node in node.childNodes:
         if sub_node.nodeType == Node.TEXT_NODE:
             sub_node.data = sub_node.data.replace("\r", "")

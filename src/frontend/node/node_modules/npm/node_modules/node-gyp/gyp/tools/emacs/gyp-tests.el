@@ -30,7 +30,7 @@
   "For the purposes of face comparison, we're not interested in the
    differences between certain faces. For example, the difference between
    font-lock-comment-delimiter and font-lock-comment-face."
-  (cl-case face
+  (case face
     ((font-lock-comment-delimiter-face) font-lock-comment-face)
     (t face)))
 

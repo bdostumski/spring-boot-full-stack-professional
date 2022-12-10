@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # Copyright (c) 2012 Google Inc. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
@@ -8,6 +8,7 @@
 These functions are executed via gyp-mac-tool when using the Makefile generator.
 """
 
+from __future__ import print_function
 
 import fcntl
 import fnmatch
@@ -22,6 +23,8 @@ import subprocess
 import sys
 import tempfile
 
+PY3 = bytes != str
+
 
 def main(args):
     executor = MacTool()
@@ -30,7 +33,7 @@ def main(args):
         sys.exit(exit_code)
 
 
-class MacTool:
+class MacTool(object):
     """This class performs all the Mac tooling steps. The methods can either be
   executed directly, or dispatched from an argument list."""
 
@@ -176,7 +179,7 @@ class MacTool:
     def ExecCopyInfoPlist(self, source, dest, convert_to_binary, *keys):
         """Copies the |source| Info.plist to the destination directory |dest|."""
         # Read the source Info.plist into memory.
-        with open(source) as fd:
+        with open(source, "r") as fd:
             lines = fd.read()
 
         # Insert synthesized key/value pairs (e.g. BuildMachineOSBuild).
@@ -248,7 +251,7 @@ class MacTool:
 
         dest = os.path.join(os.path.dirname(info_plist), "PkgInfo")
         with open(dest, "w") as fp:
-            fp.write(f"{package_type}{signature_code}")
+            fp.write("%s%s" % (package_type, signature_code))
 
     def ExecFlock(self, lockfile, *cmd_list):
         """Emulates the most basic behavior of Linux's flock(1)."""
@@ -275,7 +278,9 @@ class MacTool:
         # epoch=0, e.g. 1970-1-1 or 1969-12-31 depending on timezone.
         env["ZERO_AR_DATE"] = "1"
         libtoolout = subprocess.Popen(cmd_list, stderr=subprocess.PIPE, env=env)
-        err = libtoolout.communicate()[1].decode("utf-8")
+        _, err = libtoolout.communicate()
+        if PY3:
+            err = err.decode("utf-8")
         for line in err.splitlines():
             if not libtool_re.match(line) and not libtool_re5.match(line):
                 print(line, file=sys.stderr)
@@ -535,7 +540,7 @@ class MacTool:
                 "application-identifier", ""
             )
             for team_identifier in profile_data.get("TeamIdentifier", []):
-                app_id = f"{team_identifier}.{bundle_identifier}"
+                app_id = "%s.%s" % (team_identifier, bundle_identifier)
                 if fnmatch.fnmatch(app_id, app_id_pattern):
                     valid_provisioning_profiles[app_id_pattern] = (
                         profile_path,

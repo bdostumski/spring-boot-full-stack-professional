@@ -16,7 +16,7 @@ def escape_path(word):
     return word.replace("$ ", "$$ ").replace(" ", "$ ").replace(":", "$:")
 
 
-class Writer:
+class Writer(object):
     def __init__(self, output, width=78):
         self.output = output
         self.width = width
@@ -33,7 +33,7 @@ class Writer:
             return
         if isinstance(value, list):
             value = " ".join(filter(None, value))  # Filter out empty strings.
-        self._line(f"{key} = {value}", indent)
+        self._line("%s = %s" % (key, value), indent)
 
     def pool(self, name, depth):
         self._line("pool %s" % name)
@@ -89,7 +89,7 @@ class Writer:
             all_inputs.extend(order_only)
 
         self._line(
-            "build {}: {}".format(" ".join(out_outputs), " ".join([rule] + all_inputs))
+            "build %s: %s" % (" ".join(out_outputs), " ".join([rule] + all_inputs))
         )
 
         if variables:

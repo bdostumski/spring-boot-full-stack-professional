@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # Copyright (c) 2012 Google Inc. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
@@ -9,6 +9,7 @@
 These functions are executed via gyp-win-tool when using the ninja generator.
 """
 
+from __future__ import print_function
 
 import os
 import re
@@ -19,6 +20,7 @@ import string
 import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PY3 = bytes != str
 
 # A regex matching an argument corresponding to the output filename passed to
 # link.exe.
@@ -32,7 +34,7 @@ def main(args):
         sys.exit(exit_code)
 
 
-class WinTool:
+class WinTool(object):
     """This class performs all the Windows tooling steps. The methods can either
   be executed directly, or dispatched from an argument list."""
 
@@ -139,7 +141,9 @@ class WinTool:
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        out = link.communicate()[0].decode("utf-8")
+        out, _ = link.communicate()
+        if PY3:
+            out = out.decode("utf-8")
         for line in out.splitlines():
             if (
                 not line.startswith("   Creating library ")
@@ -219,18 +223,17 @@ class WinTool:
             our_manifest = "%(out)s.manifest" % variables
             # Load and normalize the manifests. mt.exe sometimes removes whitespace,
             # and sometimes doesn't unfortunately.
-            with open(our_manifest) as our_f:
-                with open(assert_manifest) as assert_f:
-                    translator = str.maketrans('', '', string.whitespace)
-                    our_data = our_f.read().translate(translator)
-                    assert_data = assert_f.read().translate(translator)
+            with open(our_manifest, "r") as our_f:
+                with open(assert_manifest, "r") as assert_f:
+                    our_data = our_f.read().translate(None, string.whitespace)
+                    assert_data = assert_f.read().translate(None, string.whitespace)
             if our_data != assert_data:
                 os.unlink(out)
 
                 def dump(filename):
                     print(filename, file=sys.stderr)
                     print("-----", file=sys.stderr)
-                    with open(filename) as f:
+                    with open(filename, "r") as f:
                         print(f.read(), file=sys.stderr)
                         print("-----", file=sys.stderr)
 
@@ -253,7 +256,9 @@ class WinTool:
         popen = subprocess.Popen(
             args, shell=True, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
-        out = popen.communicate()[0].decode("utf-8")
+        out, _ = popen.communicate()
+        if PY3:
+            out = out.decode("utf-8")
         for line in out.splitlines():
             if line and "manifest authoring warning 81010002" not in line:
                 print(line)
@@ -297,14 +302,16 @@ class WinTool:
         popen = subprocess.Popen(
             args, shell=True, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
-        out = popen.communicate()[0].decode("utf-8")
+        out, _ = popen.communicate()
+        if PY3:
+            out = out.decode("utf-8")
         # Filter junk out of stdout, and write filtered versions. Output we want
         # to filter is pairs of lines that look like this:
         # Processing C:\Program Files (x86)\Microsoft SDKs\...\include\objidl.idl
         # objidl.idl
         lines = out.splitlines()
         prefixes = ("Processing ", "64 bit Processing ")
-        processing = {os.path.basename(x) for x in lines if x.startswith(prefixes)}
+        processing = set(os.path.basename(x) for x in lines if x.startswith(prefixes))
         for line in lines:
             if not line.startswith(prefixes) and line not in processing:
                 print(line)
@@ -316,7 +323,9 @@ class WinTool:
         popen = subprocess.Popen(
             args, shell=True, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
-        out = popen.communicate()[0].decode("utf-8")
+        out, _ = popen.communicate()
+        if PY3:
+            out = out.decode("utf-8")
         for line in out.splitlines():
             if (
                 not line.startswith("Copyright (C) Microsoft Corporation")
@@ -334,7 +343,9 @@ class WinTool:
         popen = subprocess.Popen(
             args, shell=True, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
         )
-        out = popen.communicate()[0].decode("utf-8")
+        out, _ = popen.communicate()
+        if PY3:
+            out = out.decode("utf-8")
         for line in out.splitlines():
             if (
                 not line.startswith("Microsoft (R) Windows (R) Resource Compiler")

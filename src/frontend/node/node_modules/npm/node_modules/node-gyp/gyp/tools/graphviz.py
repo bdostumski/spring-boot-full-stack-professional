@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 # Copyright (c) 2011 Google Inc. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
@@ -8,6 +8,7 @@
 generate input suitable for graphviz to render a dependency graph of
 targets."""
 
+from __future__ import print_function
 
 import collections
 import json
@@ -65,7 +66,7 @@ def WriteGraph(edges):
             target = targets[0]
             build_file, target_name, toolset = ParseTarget(target)
             print(
-                f'  "{target}" [shape=box, label="{filename}\\n{target_name}"]'
+                '  "%s" [shape=box, label="%s\\n%s"]' % (target, filename, target_name)
             )
         else:
             # Group multiple nodes together in a subgraph.
@@ -73,14 +74,14 @@ def WriteGraph(edges):
             print('    label = "%s"' % filename)
             for target in targets:
                 build_file, target_name, toolset = ParseTarget(target)
-                print(f'    "{target}" [label="{target_name}"]')
+                print('    "%s" [label="%s"]' % (target, target_name))
             print("  }")
 
     # Now that we've placed all the nodes within subgraphs, output all
     # the edges between nodes.
     for src, dsts in edges.items():
         for dst in dsts:
-            print(f'  "{src}" -> "{dst}"')
+            print('  "%s" -> "%s"' % (src, dst))
 
     print("}")
 

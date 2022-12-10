@@ -7,7 +7,7 @@
 import gyp.easy_xml as easy_xml
 
 
-class Writer:
+class Writer(object):
     """Visual Studio XML tool file writer."""
 
     def __init__(self, tool_file_path, name):

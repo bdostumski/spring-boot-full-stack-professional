@@ -62,6 +62,7 @@ directly supplied to gyp. OTOH if both "a.gyp" and "b.gyp" are supplied to gyp
 then the "all" target includes "b1" and "b2".
 """
 
+from __future__ import print_function
 
 import gyp.common
 import json
@@ -215,7 +216,7 @@ def _ExtractSources(target, target_dict, toplevel_dir):
     return results
 
 
-class Target:
+class Target(object):
     """Holds information about a particular target:
   deps: set of Targets this Target depends upon. This is not recursive, only the
     direct dependent Targets.
@@ -251,7 +252,7 @@ class Target:
         self.is_or_has_linked_ancestor = False
 
 
-class Config:
+class Config(object):
     """Details what we're looking for
   files: set of files to search for
   targets: see file description for details."""
@@ -270,10 +271,10 @@ class Config:
         if not config_path:
             return
         try:
-            f = open(config_path)
+            f = open(config_path, "r")
             config = json.load(f)
             f.close()
-        except OSError:
+        except IOError:
             raise Exception("Unable to open file " + config_path)
         except ValueError as e:
             raise Exception("Unable to parse config file " + config_path + str(e))
@@ -585,7 +586,7 @@ def _WriteOutput(params, **values):
         f = open(output_path, "w")
         f.write(json.dumps(values) + "\n")
         f.close()
-    except OSError as e:
+    except IOError as e:
         print("Error writing to output file", output_path, str(e))
 
 
@@ -626,7 +627,7 @@ def CalculateVariables(default_variables, params):
         default_variables.setdefault("OS", operating_system)
 
 
-class TargetCalculator:
+class TargetCalculator(object):
     """Calculates the matching test_targets and matching compile_targets."""
 
     def __init__(
