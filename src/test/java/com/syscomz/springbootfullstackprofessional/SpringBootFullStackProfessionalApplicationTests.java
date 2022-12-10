@@ -9,6 +9,7 @@ class SpringBootFullStackProfessionalApplicationTests {
 
 	@Test
 	void contextLoads() {
+		Assertions.fail("Ooops test failed");
 	}
 
 }
