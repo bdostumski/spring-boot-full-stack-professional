@@ -1,0 +1,8 @@
+com/syscomz/springbootfullstackprofessional/student/Student.class
+com/syscomz/springbootfullstackprofessional/student/StudentController.class
+com/syscomz/springbootfullstackprofessional/student/StudentService.class
+com/syscomz/springbootfullstackprofessional/student/Gender.class
+com/syscomz/springbootfullstackprofessional/student/exception/BadRequestException.class
+com/syscomz/springbootfullstackprofessional/student/exception/StudentNotFoundException.class
+com/syscomz/springbootfullstackprofessional/SpringBootFullStackProfessionalApplication.class
+com/syscomz/springbootfullstackprofessional/student/StudentRepository.class

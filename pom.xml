@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.6</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.syscomz</groupId>
+    <artifactId>spring-boot-full-stack-professional</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>spring-boot-full-stack-professional</name>
+    <description>Spring boot | React | AWS</description>
+    <properties>
+        <java.version>11</java.version>
+        <!-- Give the name of the image -->
+        <app.image.name>springboot-react-fullstack</app.image.name>
+        <!-- Expected the tag version of the image -->
+        <app.image.tag/>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Add data validations-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <!-- Maven Profiles -->
+    <profiles>
+
+        <!-- Bundle FE and BE Profile -->
+        <!-- use mvn clean install will run default profile, and it will bundle FE and BE project into one jar file -->
+        <!-- java -jar filename.jar to run the project -->
+        <!-- ./mvnw clean install jib:dockerBuild -Djib.to.image=image-name:version -->
+        <profile>
+            <id>bundle-backend-and-frontend</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- https://github.com/eirslett/frontend-maven-plugin -->
+                    <!-- This plugin use npm to install and build FE project -->
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>1.11.2</version>
+                        <configuration>
+                            <nodeVersion>v4.6.0</nodeVersion>
+                            <workingDirectory>src/frontend</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>install node and npm</id>
+                                <goals>
+                                    <goal>install-node-and-npm</goal>
+                                </goals>
+                                <configuration>
+                                    <nodeVersion>v16.18.1</nodeVersion>
+                                    <npmVersion>8.19.2</npmVersion>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>npm install</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>npm run build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run build</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- https://maven.apache.org/plugins/maven-resources-plugin/plugin-info.html -->
+                    <!-- Automate copy FE build folder into static folder in our BE project, as part of the maven profile and above maven plugin -->
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-build-folder</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/frontend/build</directory>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Jib builds optimized Docker and OCI (Open Container Initiative) images for our Java applications without Docker daemon. -->
+                    <!-- https://github.com/GoogleContainerTools/jib -->
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>2.5.2</version>
+                        <configuration>
+                            <from>
+                                <image>openjdk:11</image>
+                            </from>
+                            <container>
+                                <ports>
+                                    <port>8080</port>
+                                </ports>
+                                <format>OCI</format>
+                            </container>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <!-- Push to docker hub automation -->
+        <!-- Bundle FE and BE into jar file, dockerized the file and push it to docker hub repository, by using Jib -->
+        <!-- ./mvnw clean install -P bundle-backend-and-frontend -P jib-build-docker-image-and-push-it-to-docker-hub -Dapp.image.tag=2.3 -->
+        <profile>
+            <id>jib-build-docker-image-and-push-it-to-docker-hub</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Jib builds optimized Docker and OCI (Open Container Initiative) images for our Java applications without Docker daemon. -->
+                    <!-- https://github.com/GoogleContainerTools/jib -->
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <configuration>
+                            <from>
+                                <image>openjdk:11.0.16</image>
+                            </from>
+                            <container>
+                                <ports>
+                                    <port>8080</port>
+                                </ports>
+                                <format>OCI</format>
+                            </container>
+                        </configuration>
+                        <executions>
+                            <!-- Push image with custom tag, specify by me when run mvn command -->
+                            <execution>
+                                <id>push-image-with-custom-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <!-- Upload to the docker hub with my account -->
+                                    <!-- Give name and image tag -->
+                                    <to>
+                                        <image>docker.io/bdostumski/${app.image.name}:${app.image.tag}</image>
+                                    </to>
+                                </configuration>
+                                <!-- build is used to push docker image into docker hub repository -->
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <!-- Push image with the latest tag -->
+                            <execution>
+                                <id>push-image-with-latest-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <!-- Upload to the docker hub with my account -->
+                                    <!-- Give name and image tag -->
+                                    <to>
+                                        <image>docker.io/bdostumski/${app.image.name}:latest</image>
+                                    </to>
+                                </configuration>
+                                <!-- build is used to push docker image into docker hub repository -->
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+        <!-- Push to local machine automation -->
+        <!-- Bundle FE and BE into jar file, dockerized the file by using Jib -->
+        <!-- ./mvnw clean install -P bundle-backend-and-frontend -P jib-build-local-docker-image -Dapp.image.tag=2.3 -->
+        <profile>
+            <id>jib-build-local-docker-image</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Jib builds optimized Docker and OCI (Open Container Initiative) images for our Java applications without Docker daemon. -->
+                    <!-- https://github.com/GoogleContainerTools/jib -->
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <configuration>
+                            <from>
+                                <image>openjdk:11.0.16</image>
+                            </from>
+                            <container>
+                                <ports>
+                                    <port>8080</port>
+                                </ports>
+                                <format>OCI</format>
+                            </container>
+                        </configuration>
+                        <executions>
+                            <!-- Push image with custom tag, specify by me when run mvn command -->
+                            <execution>
+                                <id>push-image-with-custom-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <!-- Upload to the docker hub with my account -->
+                                    <!-- Give name and image tag -->
+                                    <to>
+                                        <image>bdostumski/${app.image.name}:${app.image.tag}</image>
+                                    </to>
+                                </configuration>
+                                <!-- dockerBuild is used to build local docker image -->
+                                <goals>
+                                    <goal>dockerBuild</goal>
+                                </goals>
+                            </execution>
+                            <!-- Push image with the latest tag -->
+                            <execution>
+                                <id>push-image-with-latest-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <!-- Upload to the docker hub with my account -->
+                                    <!-- Give name and image tag -->
+                                    <to>
+                                        <image>bdostumski/${app.image.name}:latest</image>
+                                    </to>
+                                </configuration>
+                                <!-- dockerBuild is used to build local docker image -->
+                                <goals>
+                                    <goal>dockerBuild</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+</project>
