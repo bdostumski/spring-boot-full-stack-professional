@@ -1,0 +1,40 @@
+name: CI
+
+# Start CI only on pull request against the main branch
+on:
+  pull_request:
+    branches: [ main ]
+
+# This workflow dispatch, allows us to execute this workflow manually
+  workflow_dispatch:
+
+# Postgresql data is coming from application.properties file, because of CI execution, which means we are not deploy this data to the server
+env:
+  POSTGRESQL_VERSION: 13.7
+  POSTGRESQL_DB: syscomz
+  POSTGRESQL_USER: postgres
+  POSTGRESQL_PASSWORD: password
+  JAVA_VERSION: 1.11
+
+jobs:
+#  build means sequence of steps, it contains all the steps on the workflow
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13.7
+        env:
+          POSTGRES_DB: ${{ env.POSTGRESQL_DB }}
+          POSTGRES_USER: ${{ env.POSTGRESQL_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRESQL_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1.4.3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+      - name: Maven Clean Package
+        run: |
+          ./mvnw --no-transfer-progress clean package -P build-frontend

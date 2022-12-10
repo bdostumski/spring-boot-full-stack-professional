@@ -45,6 +45,7 @@
 - [Restore Elastic Beanstalk Environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-management-rebuild.html)
 - [Docker image Postgres](https://hub.docker.com/_/postgres) | Postgres Image from docker hub repository
 - [Mockaroo](https://www.mockaroo.com/)  | Generate fake data based on your production data
+- [GitHub](https://github.com/features/actions) | Automate your workflow from idea to production
 
 ### Cheat Sheet
 - npm -g i npx | global install npx
