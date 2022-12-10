@@ -37,4 +37,4 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
       - name: Maven Clean Package
         run: |
-          ./mvnw --no-transfer-progress clean package -P bundle-backend-and-frontend
+          mvn --no-transfer-progress clean package -P bundle-backend-and-frontend
