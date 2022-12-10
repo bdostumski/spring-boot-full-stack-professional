@@ -1,8 +1,8 @@
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/SpringBootFullStackProfessionalApplication.java
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/Student.java
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/exception/StudentNotFoundException.java
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/StudentService.java
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/StudentController.java
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/Gender.java
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/exception/BadRequestException.java
-/home/dostumski/Programming/learning/Spring/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/StudentRepository.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/Gender.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/StudentService.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/StudentController.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/SpringBootFullStackProfessionalApplication.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/exception/StudentNotFoundException.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/StudentRepository.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/Student.java
+/home/dostumski/Programming/spring-boot-full-stack-professional/src/main/java/com/syscomz/springbootfullstackprofessional/student/exception/BadRequestException.java

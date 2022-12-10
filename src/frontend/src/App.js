@@ -23,7 +23,9 @@ import {
   Badge,
   Tag,
   Avatar,
-  Radio, Popconfirm
+  Radio,
+  Popconfirm,
+  Image
 } from "antd";
 
 
@@ -298,7 +300,10 @@ function App() {
             textAlign: 'center',
           }}
         >
-          By SYSCOMz
+          <Image
+            width={75}
+            src="https://user-images.githubusercontent.com/45128462/206873801-7bfc2416-678f-4f67-a69b-c9cd9cc21d2c.png"
+          />
         </Footer>
       </Layout>
     </Layout>
