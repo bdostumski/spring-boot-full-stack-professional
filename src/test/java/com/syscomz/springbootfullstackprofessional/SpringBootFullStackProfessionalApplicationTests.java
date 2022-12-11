@@ -10,6 +10,7 @@ class SpringBootFullStackProfessionalApplicationTests {
 	@Test
 	void contextLoads() {
 		Assertions.assertTrue(Boolean.FALSE);
+		Assertions.assertTrue(Boolean.FALSE);
 	}
 
 }
