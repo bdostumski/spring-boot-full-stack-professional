@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.syscomz.springbootfullstackprofessional.SpringBootFullStackProfessionalApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.816 s - in com.syscomz.springbootfullstackprofessional.SpringBootFullStackProfessionalApplicationTests
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.107 s <<< FAILURE! - in com.syscomz.springbootfullstackprofessional.SpringBootFullStackProfessionalApplicationTests
+contextLoads  Time elapsed: 0.122 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at com.syscomz.springbootfullstackprofessional.SpringBootFullStackProfessionalApplicationTests.contextLoads(SpringBootFullStackProfessionalApplicationTests.java:12)
+
