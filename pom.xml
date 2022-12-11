@@ -92,15 +92,10 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.12.1</version>
+                        <version>1.11.2</version>
                         <configuration>
                             <nodeVersion>v4.6.0</nodeVersion>
                             <workingDirectory>src/frontend</workingDirectory>
-                            <installDirectory>target</installDirectory>
-                            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                            <!-- Add proxy's -->
-                            <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
-                            <npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>
                         </configuration>
                         <executions>
                             <execution>
@@ -109,8 +104,11 @@
                                     <goal>install-node-and-npm</goal>
                                 </goals>
                                 <configuration>
-                                    <nodeVersion>v18.9.1</nodeVersion>
-                                    <npmVersion>9.1.0</npmVersion>
+                                    <nodeVersion>v16.4.0</nodeVersion>
+                                    <npmVersion>9.2.0</npmVersion>
+                                    <!-- Add proxy's -->
+                                    <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+                                    <npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>
                                 </configuration>
                             </execution>
                             <execution>

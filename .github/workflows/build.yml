@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ main ]
 
-# This workflow dispatch, allows us to execute this workflow manually
+  # This workflow dispatch, allows us to execute this workflow manually
   workflow_dispatch:
 
 # Postgresql data is coming from application.properties file, because of CI execution, which means we are not deploy this data to the server
@@ -14,10 +14,11 @@ env:
   POSTGRESQL_DB: syscomz
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: password
-  JAVA_VERSION: 11
+  JAVA_VERSION: 1.11
+  NODE_VERSION: 16.14
 
 jobs:
-#  build means sequence of steps, it contains all the steps on the workflow
+  #  build means sequence of steps, it contains all the steps on the workflow
   build:
     runs-on: ubuntu-latest
     services:
@@ -32,6 +33,9 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: ${{ env.JAVA_VERSION }}
