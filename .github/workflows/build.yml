@@ -15,7 +15,6 @@ env:
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: password
   JAVA_VERSION: 1.11
-  NODE_VERSION: 14.0.0
 
 jobs:
   #  build means sequence of steps, it contains all the steps on the workflow
@@ -33,13 +32,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Build App
-        run: |
-          npm install 
-          npm run build
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: ${{ env.JAVA_VERSION }}
