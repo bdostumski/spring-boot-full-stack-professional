@@ -104,7 +104,7 @@
                                     <goal>install-node-and-npm</goal>
                                 </goals>
                                 <configuration>
-                                    <nodeVersion>v16.4.0</nodeVersion>
+                                    <nodeVersion>v18.0.0</nodeVersion>
                                     <npmVersion>9.2.0</npmVersion>
                                     <!-- Add proxy's -->
                                     <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>

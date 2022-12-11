@@ -15,7 +15,7 @@ env:
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: password
   JAVA_VERSION: 1.11
-  NODE_VERSION: 16.14
+  NODE_VERSION: 18.0.0
 
 jobs:
   #  build means sequence of steps, it contains all the steps on the workflow
