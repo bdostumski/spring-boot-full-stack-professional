@@ -69,6 +69,11 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
         </plugins>
     </build>
 
@@ -133,6 +138,8 @@
                             </execution>
                         </executions>
                     </plugin>
+
+
                     <!-- https://maven.apache.org/plugins/maven-resources-plugin/plugin-info.html -->
                     <!-- Automate copy FE build folder into static folder in our BE project, as part of the maven profile and above maven plugin -->
                     <plugin>
