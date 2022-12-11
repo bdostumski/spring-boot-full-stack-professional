@@ -96,6 +96,10 @@
                         <configuration>
                             <nodeVersion>v4.6.0</nodeVersion>
                             <workingDirectory>src/frontend</workingDirectory>
+                            <installDirectory>target</installDirectory>
+                            <!-- Add proxy's -->
+                            <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+                            <npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>
                         </configuration>
                         <executions>
                             <execution>
@@ -106,9 +110,6 @@
                                 <configuration>
                                     <nodeVersion>v18.9.1</nodeVersion>
                                     <npmVersion>9.1.0</npmVersion>
-                                    <!-- Add proxy's -->
-                                    <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
-                                    <npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>
                                 </configuration>
                             </execution>
                             <execution>
@@ -119,6 +120,7 @@
                                 <configuration>
                                     <arguments>install</arguments>
                                 </configuration>
+                                <phase>process-resources</phase>
                             </execution>
                             <execution>
                                 <id>npm run build</id>
@@ -128,6 +130,7 @@
                                 <configuration>
                                     <arguments>run build</arguments>
                                 </configuration>
+                                <phase>process-resources</phase>
                             </execution>
                         </executions>
                     </plugin>
