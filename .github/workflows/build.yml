@@ -15,7 +15,7 @@ env:
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: password
   JAVA_VERSION: 1.11
-  NODE_VERSION: 16.18.1
+  NODE_VERSION: 14.0.0
 
 jobs:
   #  build means sequence of steps, it contains all the steps on the workflow
@@ -38,7 +38,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
       - name: Build App
         run: |
-          npm install --legacy-peer-deps
+          npm install 
           npm run build
       - uses: actions/setup-java@v1.4.3
         with:
