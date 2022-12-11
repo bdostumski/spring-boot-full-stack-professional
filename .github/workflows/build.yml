@@ -37,10 +37,10 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Build App
-          run:
-            npm i
-            npm run lint
-            npm run build
+        run: |
+          npm i
+          npm run lint
+          npm run build
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: ${{ env.JAVA_VERSION }}
