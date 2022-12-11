@@ -150,7 +150,7 @@
                                             <directory>src/frontend/build</directory>
                                         </resource>
                                     </resources>
-                                    <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+                                    <outputDirectory>${project.basedir}/target/classes/static</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>

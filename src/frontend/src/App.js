@@ -1,5 +1,5 @@
 // Custom functional componsents
-import { deleteStudent, getAllStudents, addNewStudent } from "./Client";
+import { deleteStudent, getAllStudents } from "./Client";
 import StudentDrawerForm from "./StudentDrawerForm";
 import { errorNotification, successNotification } from "./Notification";
 
