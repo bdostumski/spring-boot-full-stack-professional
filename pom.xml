@@ -97,6 +97,7 @@
                             <nodeVersion>v4.6.0</nodeVersion>
                             <workingDirectory>src/frontend</workingDirectory>
                             <installDirectory>target</installDirectory>
+                            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
                             <!-- Add proxy's -->
                             <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
                             <npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>
