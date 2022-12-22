@@ -87,11 +87,11 @@
             <!-- The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. It generates reports in two different file formats:-->
             <!-- By default, these files are generated in ${basedir}/target/surefire-reports/TEST-*.xml.-->
             <!-- In my pom.xml I use ${project.basedir}/target/classes/static -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                <version>2.19.1</version>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
@@ -175,7 +175,7 @@
                                             <directory>src/frontend/build</directory>
                                         </resource>
                                     </resources>
-                                    <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+                                    <outputDirectory>${project.basedir}/target/classes/static</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
