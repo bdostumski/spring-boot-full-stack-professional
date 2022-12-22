@@ -9,8 +9,7 @@ class SpringBootFullStackProfessionalApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Assertions.fail("ERROR MESSAGE");
-		Assertions.assertTrue(Boolean.FALSE);
+
 	}
 
 }
