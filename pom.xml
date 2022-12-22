@@ -142,7 +142,7 @@
                                 <configuration>
                                     <arguments>install</arguments>
                                 </configuration>
-                                <phase>process-resources</phase>
+<!--                                <phase>process-resources</phase>-->
                             </execution>
                             <execution>
                                 <id>npm run build</id>
@@ -152,7 +152,7 @@
                                 <configuration>
                                     <arguments>run build</arguments>
                                 </configuration>
-                                <phase>process-resources</phase>
+<!--                                <phase>process-resources</phase>-->
                             </execution>
                         </executions>
                     </plugin>
@@ -192,11 +192,11 @@
                                 <image>openjdk:11</image>
                             </from>
                             <container>
-                                <mainClass>com.syscomz.springbootfullstackprofessional.SpringBootFullStackProfessionalApplicationTests</mainClass>
-                                <environment>
-                                    <application.title>${project.name}</application.title>
-                                    <application.version>${project.version}</application.version>
-                                </environment>
+<!--                                <mainClass>com.syscomz.springbootfullstackprofessional.SpringBootFullStackProfessionalApplicationTests</mainClass>-->
+<!--                                <environment>-->
+<!--                                    <application.title>${project.name}</application.title>-->
+<!--                                    <application.version>${project.version}</application.version>-->
+<!--                                </environment>-->
                                 <ports>
                                     <port>8080</port>
                                 </ports>
