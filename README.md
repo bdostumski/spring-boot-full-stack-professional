@@ -46,6 +46,9 @@
 - [Docker image Postgres](https://hub.docker.com/_/postgres) | Postgres Image from docker hub repository
 - [Mockaroo](https://www.mockaroo.com/)  | Generate fake data based on your production data
 - [GitHub](https://github.com/features/actions) | Automate your workflow from idea to production
+- [Slack](https://slack.com/) | Slack team messaging system
+- [Slack build own apps](https://api.slack.com/apps) | Slack build own app that will automate messaging notifications in CI/CD process
+- 
 
 ### Cheat Sheet
 - npm -g i npx | global install npx
@@ -207,3 +210,16 @@
             3. IN CASE OF ERROR INTO DEPLOYMENT WORKFLOW (it will stop to the step where is the error, and will not continue to the next steps)
          3. BUILD WORKFLOW this step is CI (because we merge our new code but do not deploy the new code to the application, we do not create a new build of our application)
          4. DEPLOYMENT FLOW this step is CI/CD (because we merge our new code and deploy the new code to the application, we create a new build of our application)
+      4. Slack messaging system
+         1. Build own app that will message on deployment process
+         2. Click on Settings & Administration -> Manage apps -> Build -> Create App -> From scratch -> Give Name and choose app workspace -> click Create App 
+         3. Choose button Incoming Webhooks -> Activate Incoming Webhooks -> Add New Webhook to Workspace \(choose workspace and chanel for messaging\) -> choose Allow 
+         4. Copy automatic generated Simple curl request to post to a chanel -> past the code into IntelliJ terminal and will receive message into Slack Hello, World!
+         5. Copy Webhook URL and go to your GitHub project go to Settings of the project -> go to Secrets -> Codespaces -> click New Repository Secret -> give random name, and for the value past the copied URL -> Add the secret
+         6. Create new Repository Secret and for DockerHub repository to automate the login process -> click agan into New Repository Secret
+         7. Create AWS user to perform automated deployments into Elastic Beanstalk
+            1. Go to AWS Management Console -> go to your Username -> Security credentials 
+               1. Into UserGroups create -> Group \[Give group name, choose policy AdministratorAccess-AWSElasticBeanStalk, click Create Group\]
+               2. Into Users create -> create new user for the new group -> click Add User -> give username and click Access key Programmatic access -> click Next Permissions -> into Add user to group choose the group that will be added to this user -> click Next Tags -> do not add anything just click Next:Review -> click Create User 
+               3. Copy generated Secret Access ID and Key and paste them into GitHub repository create again into Codespace New Secret give random name for both for example AWS_ACCESS_KEY paste only access key, after that create new secret for the password give name for example AWS_SECRET_ACCESS_KEY and past the secret access key
+            2. Create DEPLOY Workflow Yaml
