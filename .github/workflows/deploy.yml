@@ -43,6 +43,7 @@ jobs:
     steps:
       - uses: 8398a7/action-slack@v3 # Allow us to send Slack notifications
         with:
+          chanel: #build-software
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took # this is the tabs that will be showed into slack message
           text: 'CICD ongoing... :eyes:' # This is the title of the message
