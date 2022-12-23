@@ -14,7 +14,6 @@
     <name>spring-boot-full-stack-professional</name>
     <description>Spring boot | React | AWS</description>
     <properties>
-        <start-class>com.syscomz.SpringBootFullStackProfessionalApplication</start-class>
         <java.version>11</java.version>
         <!-- Give the name of the image -->
         <app.image.name>springboot-react-fullstack</app.image.name>
@@ -179,9 +178,6 @@
                                 <image>gcr.io/distroless/java:11</image>
                             </from>
                             <container>
-                                <mainClass>
-                                    com.syscomz.springbootfullstackprofessional.SpringBootFullStackProfessionalApplicationTests
-                                </mainClass>
                                 <environment>
                                     <application.title>${project.name}</application.title>
                                     <application.version>${project.version}</application.version>
