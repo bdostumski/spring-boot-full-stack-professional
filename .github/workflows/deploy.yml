@@ -22,7 +22,7 @@ env:
   # AWS & Elastic Bean Stalk
   AWS_REGION: eu-west-2
   # Get Environment and Application names from AWS
-  EB_ENVIRONMENT_NAME: Springbootreactfullstack-env-1
+  EB_ENVIRONMENT_NAME: Springbootreactfullstack-env
   EB_APPLICATION_NAME: springboot-react-fullstack
   # This is my local docker-compose.yml
   EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
@@ -116,7 +116,7 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-          text: ':tada: :arrow_right: Springbootreactfullstack-env-1.eba-t7gvebb3.eu-west-2.elasticbeanstalk.com'
+          text: ':tada: :arrow_right: Springbootreactfullstack-env.eba-hvmssp8z.eu-west-2.elasticbeanstalk.com'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # comes from GitHub secrets
         if: always() # if the build fails the line from line 115 to the end will always triggered
