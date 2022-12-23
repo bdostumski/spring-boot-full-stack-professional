@@ -25,7 +25,8 @@ import {
   Avatar,
   Radio,
   Popconfirm,
-  Image
+  Image,
+  Divider
 } from "antd";
 
 
@@ -304,6 +305,14 @@ function App() {
             width={75}
             src="https://user-images.githubusercontent.com/45128462/206873801-7bfc2416-678f-4f67-a69b-c9cd9cc21d2c.png"
           />
+          <Divider>
+            <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="http://www.syscomz.com">
+                Click here to access my website
+            </a>
+          </Divider>
         </Footer>
       </Layout>
     </Layout>
