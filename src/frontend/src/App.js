@@ -311,6 +311,7 @@ function App() {
                 target="_blank"
                 href="http://www.syscomz.com">
                 Click here!
+                <br/>CI/CD test
             </a>
           </Divider>
         </Footer>
