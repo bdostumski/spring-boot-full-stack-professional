@@ -25,7 +25,7 @@ env:
   EB_ENVIRONMENT_NAME: Springbootreactfullstack-env
   EB_APPLICATION_NAME: springboot-react-fullstack
   # This is my local docker-compose.yml
-  EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
+  EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yaml
 
 jobs:
   deploy:
