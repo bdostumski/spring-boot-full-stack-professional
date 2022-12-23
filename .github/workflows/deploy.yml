@@ -38,7 +38,7 @@ jobs:
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
           text: 'CICD ongoing... :eyes:'
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
 
       - uses: actions/checkout@v2
 
@@ -55,7 +55,7 @@ jobs:
         uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
         with:
           username: ${{ env.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          password: ${DOCKER_HUB_PASSWORD}
 
       - name: Maven Clean Package and Push to Dockerhub
         run: |
@@ -69,7 +69,7 @@ jobs:
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
           text: ':white_check_mark: pushed bdostumski/springboot-react-fullstack:${{steps.build-number.outputs.BUILD_NUMBER}} to docker hub... https://hub.docker.com/repository/docker/bdostumski/springboot-react-fullstack'
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
       - name: Update and commit app version in docker-compose.yaml
         run: |
           BUILD_NUMBER=${{steps.build-number.outputs.BUILD_NUMBER}}
@@ -88,12 +88,12 @@ jobs:
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
           text: ':elasticbeanstalk: :aws: Deployment started... :grimacing: :crossed_fingers:'
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@ebe3476a4ce991d54336935e75e78dd9d86f9408
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key: ${AWS_ACCESS_KEY_ID}
+          aws_secret_key: ${AWS_SECRET_ACCESS_KEY}
           region: ${{ env.AWS_REGION }}
           environment_name: ${{ env.EB_ENVIRONMENT_NAME }}
           application_name: ${{ env.EB_APPLICATION_NAME }}
@@ -107,5 +107,5 @@ jobs:
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
           text: ':tada: :arrow_right: Springbootreactfullstack-env.eba-hvmssp8z.eu-west-2.elasticbeanstalk.com'
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK_URL}
         if: always()
