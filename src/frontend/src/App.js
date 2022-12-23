@@ -310,7 +310,7 @@ function App() {
                 rel="noopener noreferrer"
                 target="_blank"
                 href="http://www.syscomz.com">
-                Click here to access my website
+                Click here
             </a>
           </Divider>
         </Footer>
