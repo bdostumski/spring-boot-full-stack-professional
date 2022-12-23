@@ -32,7 +32,7 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-      - uses: 8398a7/action-slack@v3
+      - uses: 8398a7/action-slack@v2
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
@@ -63,7 +63,7 @@ jobs:
             -P bundle-backend-and-frontend \
             -P jib-build-docker-image-and-push-it-to-docker-hub \
               -Dapp.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}}
-      - uses: 8398a7/action-slack@v3
+      - uses: 8398a7/action-slack@v2
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
@@ -82,7 +82,7 @@ jobs:
           git commit -m "new app version: ${BUILD_NUMBER}"
           git push
 
-      - uses: 8398a7/action-slack@v3
+      - uses: 8398a7/action-slack@v2
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
@@ -101,7 +101,7 @@ jobs:
           version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
           version_description: Version ${{steps.build-number.outputs.BUILD_NUMBER}} deployed via github actions ${{ github.sha }}
           wait_for_deployment: 60
-      - uses: 8398a7/action-slack@v3
+      - uses: 8398a7/action-slack@v2
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
