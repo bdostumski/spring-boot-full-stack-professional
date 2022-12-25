@@ -116,7 +116,7 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-          text: ':tada: :arrow_right: Springbootreactfullstack-env.eba-hvmssp8z.eu-west-2.elasticbeanstalk.com'
+          text: ':tada: :arrow_right: Springbootreactfullstack-env.eba-bvvehcpg.eu-west-2.elasticbeanstalk.com'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # comes from GitHub secrets
         if: always() # if the build fails the line from line 115 to the end will always triggered
