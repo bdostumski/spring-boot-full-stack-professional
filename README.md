@@ -48,7 +48,9 @@
 - [GitHub](https://github.com/features/actions) | Automate your workflow from idea to production
 - [Slack](https://slack.com/) | Slack team messaging system
 - [Slack build own apps](https://api.slack.com/apps) | Slack build own app that will automate messaging notifications in CI/CD process
-- 
+- [Junit 5](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests) | testing framework for Java and the JVM
+- [AssertJ](https://assertj.github.io/doc/) | AssertJ
+- [H2 Database](https://www.h2database.com/html/main.html) | H2 In-memory Database
 
 ### Cheat Sheet
 - npm -g i npx | global install npx
@@ -222,5 +224,14 @@
                1. Into UserGroups create -> Group \[Give group name, choose policy AdministratorAccess-AWSElasticBeanStalk, click Create Group\]
                2. Into Users create -> create new user for the new group -> click Add User -> give username and click Access key Programmatic access -> click Next Permissions -> into Add user to group choose the group that will be added to this user -> click Next Tags -> do not add anything just click Next:Review -> click Create User 
                3. Copy generated Secret Access ID and Key and paste them into GitHub repository create again into Codespace New Secret give random name for both for example AWS_ACCESS_KEY paste only access key, after that create new secret for the password give name for example AWS_SECRET_ACCESS_KEY and past the secret access key
-               4. [Slack messages fix](https://www.svix.com/resources/guides/how-to-get-slack-webhook-url/) Read this to fix slack messages
+               4. [Slack messages fix](https://www.svix.com/resources/guides/how-to-get-slack-webhook-url/) Read this to fix Slack messages
             2. Create DEPLOY Workflow Yaml
+9. Unit / Integration Testing
+!["Testing UML Diagram Image"](./resources/unit_testing_uml_diagram.png)
+   1. JUnit5 = JUnit Platform + JUnit Jupiter + JUnit Vintage
+      1. The JUnit Platform serves as a foundation for launching testing framework on the JVM.
+      2. JUnit Jupiter is the combination of the new programming model and extension model for writing test and extensions in JUnit5.
+      3. JUnit Vintage provides a TestingEngine for running JUnit3 and JUnit4 based tests on the platform.
+   2. AssertJ - is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability. THIS IS BETTER than assertions of JUnit5
+   3. Using H2 In-memory Database for Testing purposes 
+   4. 

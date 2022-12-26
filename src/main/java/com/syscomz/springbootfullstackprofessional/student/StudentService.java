@@ -9,7 +9,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class StudentService {
+public class    StudentService {
 
     private final StudentRepository studentRepository;
 
