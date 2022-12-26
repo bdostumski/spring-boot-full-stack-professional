@@ -1,11 +1,9 @@
 package com.syscomz.springbootfullstackprofessional;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@SpringBootTest(classes = SpringBootFullStackProfessionalApplicationTests.class)
 class SpringBootFullStackProfessionalApplicationTests {
 
     Calculator underTest = new Calculator();

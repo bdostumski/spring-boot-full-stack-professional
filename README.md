@@ -50,6 +50,7 @@
 - [Slack build own apps](https://api.slack.com/apps) | Slack build own app that will automate messaging notifications in CI/CD process
 - [Junit 5](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests) | testing framework for Java and the JVM
 - [AssertJ](https://assertj.github.io/doc/) | AssertJ
+- [H2 Database](https://www.h2database.com/html/main.html) | H2 In-memory Database
 
 ### Cheat Sheet
 - npm -g i npx | global install npx
@@ -232,4 +233,5 @@
       2. JUnit Jupiter is the combination of the new programming model and extension model for writing test and extensions in JUnit5.
       3. JUnit Vintage provides a TestingEngine for running JUnit3 and JUnit4 based tests on the platform.
    2. AssertJ - is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability. THIS IS BETTER than assertions of JUnit5
-   3. 
+   3. Using H2 In-memory Database for Testing purposes 
+   4. 
