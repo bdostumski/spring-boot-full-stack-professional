@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   backend:  # service name
-    image: "bdostumski/springboot-react-fullstack:26.12.2022.10.31.31" # docker image from our docker hub repository
+    image: "bdostumski/springboot-react-fullstack:26.12.2022.13.18.40" # docker image from our docker hub repository
     ports:  # array of ports
       - "80:8080" # map port 80 to port 8080 which is spring boot port
     restart: "always" # if the application have issues and fails it will try to bring the application up, so we want to restart alwaysroot@syscomz:/home/dostumski/Programming/spring-boot-full-stack-professional/elasticbeanstalk
