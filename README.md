@@ -51,6 +51,8 @@
 - [Junit 5](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests) | testing framework for Java and the JVM
 - [AssertJ](https://assertj.github.io/doc/) | AssertJ
 - [H2 Database](https://www.h2database.com/html/main.html) | H2 In-memory Database
+- [Failsafe Plugin](https://maven.apache.org/surefire/maven-failsafe-plugin/) | The Failsafe Plugin is designed to run integration tests.
+- [Faker](https://github.com/DiUS/java-faker) | Randomly generate fake data, which will be used into integration tests
 
 ### Cheat Sheet
 - npm -g i npx | global install npx
@@ -226,7 +228,7 @@
                3. Copy generated Secret Access ID and Key and paste them into GitHub repository create again into Codespace New Secret give random name for both for example AWS_ACCESS_KEY paste only access key, after that create new secret for the password give name for example AWS_SECRET_ACCESS_KEY and past the secret access key
                4. [Slack messages fix](https://www.svix.com/resources/guides/how-to-get-slack-webhook-url/) Read this to fix Slack messages
             2. Create DEPLOY Workflow Yaml
-9. Unit / Integration Testing
+9. Unit / Integration Testing (testing should start from the repository to the services. Every unit that was tested before should be mocked from the other test. For example, if we test the repository unit, we should mock it in the service tests unit. Except we make integration testing in this case we want the request flow through the system, and make sour that everything is working fine.)
 !["Testing UML Diagram Image"](./resources/unit_testing_uml_diagram.png)
    1. JUnit5 = JUnit Platform + JUnit Jupiter + JUnit Vintage
       1. The JUnit Platform serves as a foundation for launching testing framework on the JVM.
@@ -234,4 +236,6 @@
       3. JUnit Vintage provides a TestingEngine for running JUnit3 and JUnit4 based tests on the platform.
    2. AssertJ - is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability. THIS IS BETTER than assertions of JUnit5
    3. Using H2 In-memory Database for Testing purposes 
-   4. 
+   4. Integration Tests 
+      1. Using Failsafe Plugin (which is part of Plugin Management, in spring-boot-starter-parent), it is designed to run integration tests while the Surefire Plugin is designed to run unit tests.
+      2. Integration tests should be tested only positive paths, because all other negative tests are already tested with unit tests

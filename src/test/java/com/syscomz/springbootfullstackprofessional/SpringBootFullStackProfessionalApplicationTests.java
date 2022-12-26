@@ -1,5 +1,6 @@
 package com.syscomz.springbootfullstackprofessional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -14,6 +15,7 @@ class SpringBootFullStackProfessionalApplicationTests {
     // When - the behavior/action that happens and causes the result in the end
     // Then - the result caused by the behavior in the state
     @Test
+//    @Disabled // Stop this test to be started
     void itShouldAddTwoNumbers() {
         // given
         int numberOne = 20;
