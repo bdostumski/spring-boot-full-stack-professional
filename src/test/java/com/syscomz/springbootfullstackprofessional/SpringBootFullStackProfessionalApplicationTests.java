@@ -25,7 +25,7 @@ class SpringBootFullStackProfessionalApplicationTests {
         int result = underTest.add(numberOne, numberTwo);
 
         // then
-        int expected = 50;
+        int expected = 5;
         assertThat(result).isEqualTo(expected);
     }
 
