@@ -22,8 +22,8 @@ env:
   # AWS & Elastic Bean Stalk
   AWS_REGION: eu-west-2
   # Get Environment and Application names from AWS
-  EB_ENVIRONMENT_NAME: Springbootreactfullstack-env
-  EB_APPLICATION_NAME: springboot-react-fullstack
+  EB_ENVIRONMENT_NAME: Fullstackapplication-env
+  EB_APPLICATION_NAME: fullstack-application
   # This is my local docker-compose.yaml
   EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yaml
 
