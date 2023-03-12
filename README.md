@@ -197,12 +197,18 @@ docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-
 6. Database in ElasticBeanstalk -> AWS RDS
    1. Got to the application environment, click configuration tab and choose database 
    2. On the open windows setup these settings (postgres, version: db.t2.micro this is the smalls database in the AWS)
+![AWS ElasticBean Stalk Config DB](./resources/aws-configure-database.png)
    3. Create new application-dev.properties file, and make your IDE to use it by adding Environment variables: SPRING_PROFILES_ACTIVE=dev , where dev is equals to dev in application-dev.properties
    4. Databases in AWS are protected by SecurityGroup which means only the instances behind the Load balancer can connect to them, or we can specify specific ip address which also can externally log into our database which is bad practice. (What it is happened, actually is that our clients will log into our application through load balancer, where load balancer will check for free instance of our application will connect it to the client, and the instance of our application will be connected to AWS RDS database which is protected by AWS Firewall Security Group)
-   5. Allow external applications to rich our AWS RDS database, find RDS (relational database) into AWS window, click DB instances, after that click into database id, to log into database configurations for the specific database instance. Choose VCP Security Group, log-in, click into Inbound Rules, copy first part of the source code for example: sg-0b8d993d27127ea78. Same Security Group can be seen into EC2 where is the environment instance of our application, check the tab Security and the Security Group id should be the same as that of the RDS database: sg-0b8d993d27127ea78, which means this EC2 instance of the application can communicate with this instance of RDS database.
+      5. Allow external applications to rich our AWS RDS database, find RDS (relational database) into AWS window, click DB instances, after that click into database id, to log into database configurations for the specific database instance. Choose VCP Security Group, log-in, click into Inbound Rules, copy first part of the source code for example: sg-0b8d993d27127ea78. Same Security Group can be seen into EC2 where is the environment instance of our application, check the tab Security and the Security Group id should be the same as that of the RDS database: sg-0b8d993d27127ea78, which means this EC2 instance of the application can communicate with this instance of RDS database.
+![AWS RDS](./resources/aws-rds.png)
+![AWS RDS Screen](./resources/aws-rds-screen.png)
+![AWS RDS VCP Screen](./resources/aws-rds-vcp-screen.png)
    6. Setup AWS RDS (relational databases) to allow external applications to rich it. Go to RDS tab, choose DB instance, open the database instance that you want to change, on the Security section click on the link under VPC security groups. In Inbound Rules click Edit Inbound Rules -> click Add Rule setup settings (PostgreSQL, after that choose from where you can connect to your database: from anyware, or from IP) and click Save Rules
+![AWS RDS add Inbounded Rules](./resources/aws-rds-add-inbounded-rules.png)
    7. Connect to my AWS RDS trough docker example:
-      - docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-1.rds.amazonaws.com -U amigoscode -d postgres | -h it is the host path to the AWS RDS database without the port, can be found into Environment -> Configuration
+      - docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-1.rds.amazonaws.com -U syscomz -d postgres | -h it is the host path to the AWS RDS database without the port, can be found into Environment -> Configuration
+![AWS RDS external connection](./resources/aws-rds-external-connection.png)
 7. Deploy new version of the application (first should create new image and push it to the DockerHub, after that should upload docker-compose.yaml into AWS to get the new version from DockerHub)
    0. Remove environment variable from the IDEA SPRING_PROFILES_ACTIVE=dev
    1. First write: docker login, to login into docker
