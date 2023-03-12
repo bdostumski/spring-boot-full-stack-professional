@@ -194,6 +194,7 @@ docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-
    4. Actually we will have to containers one will be (docker-container-database-name: db) <-> (network-name: db) <-> (docker-container: psql), psql is used to connect to database with name db through network with name db | docker run -it --rm --network=db postgres:alpine psql -h db -U postgres
    5. This docker containers will be used only for testing purposes, in our AWS will use **RDS** database 
    6. Check the application.properties for database configurations
+![Deploy to Docker Hub](./resources/deploy-to-dockerhub.png))
 6. Database in ElasticBeanstalk -> AWS RDS
    1. Got to the application environment, click configuration tab and choose database 
    2. On the open windows setup these settings (postgres, version: db.t2.micro this is the smalls database in the AWS)
@@ -214,6 +215,7 @@ docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-
    1. First write: docker login, to login into docker
    2. mvn clean install -P bundle-backend-and-frontend -P jib-build-docker-image-and-push-it-to-docker-hub -Dapp.image.tag=3 -- use -P (for profile) bundle-backend-and-frontend to bundle FE and BE locally, and then run -P (for profile) bundle-backend-and-frontend to use Jib to create docker image and to push it into DockerHub repository, and then set up the version of the docker image -Dapp.image.tag=3 (where app.image.tag is environment variable)
    3. To deploy the application into AWS upload docker-compose.yaml file
+
 8. CI/CD Pipelines (Continues Integration Continues Delivery)
    1. CI/CD Steps:
       1. Create code
