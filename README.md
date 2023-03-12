@@ -215,6 +215,8 @@ docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-
    1. First write: docker login, to login into docker
    2. mvn clean install -P bundle-backend-and-frontend -P jib-build-docker-image-and-push-it-to-docker-hub -Dapp.image.tag=3 -- use -P (for profile) bundle-backend-and-frontend to bundle FE and BE locally, and then run -P (for profile) bundle-backend-and-frontend to use Jib to create docker image and to push it into DockerHub repository, and then set up the version of the docker image -Dapp.image.tag=3 (where app.image.tag is environment variable)
    3. To deploy the application into AWS upload docker-compose.yaml file
+![AWS Deployed Application](./resources/aws-deployed-application.png)
+
 
 8. CI/CD Pipelines (Continues Integration Continues Delivery)
    1. CI/CD Steps:
@@ -261,6 +263,12 @@ docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-
                3. Copy generated Secret Access ID and Key and paste them into GitHub repository create again into Codespace New Secret give random name for both for example AWS_ACCESS_KEY paste only access key, after that create new secret for the password give name for example AWS_SECRET_ACCESS_KEY and past the secret access key
                4. [Slack messages fix](https://www.svix.com/resources/guides/how-to-get-slack-webhook-url/) Read this to fix Slack messages
             2. Create DEPLOY Workflow Yaml
+      5. CI/CD Messages on Slack
+![CICD ongoing](./resources/cicd-message1.png)
+![CICD  pushed bdostumski/springboot-react-fullstack:12.3.2023.8.17.50 to docker hub..](./resources/cicd-message2.png)
+![elasticbeanstalk aws Deployment started...](./resources/cicd-message3.png)
+![Deployed to AWS](./resources/cicd-message4.png)
+
 9. Unit / Integration Testing (testing should start from the repository to the services. Every unit that was tested before should be mocked from the other test. For example, if we test the repository unit, we should mock it in the service tests unit. Except we make integration testing in this case we want the request flow through the system, and make sour that everything is working fine.)
 !["Testing UML Diagram Image"](./resources/unit_testing_uml_diagram.png)
    1. JUnit5 = JUnit Platform + JUnit Jupiter + JUnit Vintage
