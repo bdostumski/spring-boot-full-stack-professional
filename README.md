@@ -187,6 +187,7 @@ docker run -it --rm postgres:alpine psql -h aa9320n4muma7h.celswdmxhcr1.eu-west-
    6. One approach of deployment is fore example to have BE and FE bundled into single Jar file and to be deployed, another approach for bigger applications is to decouple BE, FE, and other services as separate applications and to be managed by kubernetes to handle the incremental traffic. 
    7. The idea of Elastic Beanstalk is to handle simple applications, if there is a need to have more complex application than we need to check for different approach.
    8. To not be charged from AWS (it is good idea to **terminate** the environment and when it is needed can be **restored** again) links are added above into **Links** section
+![AWS Environments](./resources/aws-environments.png)
 5. Database and Spring Data JPA
    1. First create docker network with name **db** | docker network create db
    2. On our local machine create folder to store data from our docker container with name **db-data**
